@@ -13,7 +13,7 @@ const LS_KEYS = {
   theme:        'ebv_theme',
 };
 
-const DEFAULT_CATEGORIES = ['Food', 'Transport', 'Housing', 'Health', 'Entertainment', 'Shopping', 'Salary', 'Other'];
+const DEFAULT_CATEGORIES = ['Makanan', 'Trannsportasi', 'Entertainment', 'Lainnya'];
 
 const CHART_COLORS = [
   '#2563eb','#16a34a','#dc2626','#f59e0b','#7c3aed',
