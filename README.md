@@ -1,4 +1,4 @@
-# 💰 BudgetViz — Expense & Budget Visualizer
+# Expense & Budget Visualizer
 
 A mobile-friendly web app to track daily spending, visualize categories, and manage a monthly budget — all without a backend.
 
