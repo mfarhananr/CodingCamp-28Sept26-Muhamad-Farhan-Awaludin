@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense & Budget Visualizer</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="app-header">
+    <h1 class="app-title">💰 Budget Tracker</h1>
+    <button id="themeToggle" class="btn btn-icon" aria-label="Toggle dark/light mode">🌙</button>
+  </header>
+
+  <main class="app-main">
+
+    <!-- Balance Summary Cards -->
+    <section class="summary-grid">
+      <div class="summary-card summary-card--balance">
+        <span class="summary-label">Total Balance</span>
+        <span class="summary-value" id="totalBalance">$0.00</span>
+      </div>
+      <div class="summary-card summary-card--income">
+        <span class="summary-label">Total Income</span>
+        <span class="summary-value" id="totalIncome">$0.00</span>
+      </div>
+      <div class="summary-card summary-card--expense">
+        <span class="summary-label">Total Expenses</span>
+        <span class="summary-value" id="totalExpense">$0.00</span>
+      </div>
+    </section>
+
+    <!-- Add Transaction Form -->
+    <section class="card" id="addTransactionSection">
+      <h2 class="card-title">Add Transaction</h2>
+      <form id="transactionForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="txDescription">Description</label>
+            <input type="text" id="txDescription" placeholder="e.g. Lunch, Salary…" autocomplete="off" required />
+          </div>
+          <div class="form-group">
+            <label for="txAmount">Amount ($)</label>
+            <input type="number" id="txAmount" placeholder="0.00" min="0.01" step="0.01" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="txType">Type</label>
+            <select id="txType">
+              <option value="expense">Expense</option>
+              <option value="income">Income</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="txCategory">Category</label>
+            <select id="txCategory"></select>
+          </div>
+          <div class="form-group">
+            <label for="txDate">Date</label>
+            <input type="date" id="txDate" required />
+          </div>
+        </div>
+        <div id="formError" class="form-error" hidden></div>
+        <button type="submit" class="btn btn-primary btn-full">Add Transaction</button>
+      </form>
+    </section>
+
+    <!-- Spending Limits -->
+    <section class="card" id="limitsSection">
+      <h2 class="card-title">
+        Spending Limits
+        <button class="btn btn-sm" id="toggleLimits">Show</button>
+      </h2>
+      <div id="limitsBody" hidden>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="limitCategory">Category</label>
+            <select id="limitCategory"></select>
+          </div>
+          <div class="form-group">
+            <label for="limitAmount">Limit ($)</label>
+            <input type="number" id="limitAmount" placeholder="0.00" min="1" step="0.01" />
+          </div>
+          <div class="form-group form-group--btn">
+            <button class="btn btn-secondary" id="setLimitBtn">Set Limit</button>
+          </div>
+        </div>
+        <ul class="limits-list" id="limitsList"></ul>
+      </div>
+    </section>
+
+    <!-- Custom Categories -->
+    <section class="card" id="categoriesSection">
+      <h2 class="card-title">
+        Categories
+        <button class="btn btn-sm" id="toggleCategories">Show</button>
+      </h2>
+      <div id="categoriesBody" hidden>
+        <div class="form-row">
+          <div class="form-group">
+            <input type="text" id="newCategoryInput" placeholder="New category name" autocomplete="off" />
+          </div>
+          <div class="form-group form-group--btn">
+            <button class="btn btn-secondary" id="addCategoryBtn">Add Category</button>
+          </div>
+        </div>
+        <ul class="category-tags" id="categoryTagsList"></ul>
+      </div>
+    </section>
+
+    <!-- Chart Section -->
+    <section class="card" id="chartSection">
+      <h2 class="card-title">Spending by Category</h2>
+      <div class="chart-wrapper">
+        <canvas id="spendingChart" width="320" height="320" aria-label="Spending by category donut chart"></canvas>
+        <div class="chart-legend" id="chartLegend"></div>
+      </div>
+      <p class="chart-empty" id="chartEmpty">No expense data to display.</p>
+    </section>
+
+    <!-- Transaction History -->
+    <section class="card" id="historySection">
+      <div class="history-header">
+        <h2 class="card-title">Transaction History</h2>
+        <div class="history-controls">
+          <label class="sr-only" for="sortSelect">Sort by</label>
+          <select id="sortSelect" class="sort-select">
+            <option value="date-desc">Newest first</option>
+            <option value="date-asc">Oldest first</option>
+            <option value="amount-desc">Highest amount</option>
+            <option value="amount-asc">Lowest amount</option>
+            <option value="category-asc">Category A-Z</option>
+          </select>
+          <button class="btn btn-sm btn-danger" id="clearAllBtn">Clear All</button>
+        </div>
+      </div>
+      <ul class="transaction-list" id="transactionList">
+        <li class="tx-empty" id="txEmpty">No transactions yet. Add one above!</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <p>Data stored locally in your browser · <span id="txCount">0</span> transactions</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
